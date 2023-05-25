@@ -1,100 +1,29 @@
 <template>
-  <div class="autocomplete">
-    <v-text-field
-      v-model="query"
-      v-on:input="handleInput"
-      v-on:focus="showSuggestions"
-      v-on:blur="hideSuggestions"
-      density="compact"
-      placeholder="Search"
-      style="z-index: 1000; overflow: hidden;"
-    >
-      <template v-slot:prepend-inner>
-        <div style="position: fixed; width: 100000px; padding-left: 6px">
-          <span>
-            {{ query }}
-          </span>
-          <span style="background-color: gray">
-            {{ fillQuery }}
-          </span>
-        </div>
-      </template>
-    </v-text-field>
-
-    <ul v-show="suggestions">
-      <!-- <p>You are searching for {{ query }}</p> -->
-      <li v-for="suggestion in suggestions" v-on:click="handleSelect(suggestion)">
-        {{ suggestion }}
-      </li>
-    </ul>
-  </div>
+  <v-autocomplete
+    v-model="query"
+    :items="items"
+    append-inner-icon="mdi-magnify"
+    auto-select-first
+    class="flex-full-width"
+    density="comfortable"
+    item-props
+    menu-icon=""
+    placeholder="Search Luzoft"
+    rounded
+    theme="light"
+    variant="outlined"
+  />
 </template>
 
 <script>
 export default {
   name: "Autocomplete",
-  props: {
-    items: {
-      type: Array,
-      default: [],
-    },
-  },
-  data() {
+  props: ['items'],
+  data(props) {
     return {
-      headers: [
-        'autoCompleted',
-        'query',
-        'tempQuery',
-        'willQuery',
-      ],
+      labels: props.items,
       query: "",
-      focus: false,
-      tempQuery: "",
-      fillQuery: "",
-      target: null,
-      suggestions: [],
     };
-  },
-  methods: {
-    handleInput(event) {
-      this.target = event.target;
-
-      const newSuggestion = this.items.filter((item) =>
-        item.toLowerCase().startsWith(this.query.toLowerCase())
-      );
-
-      if(newSuggestion.length){
-        const flag = this.tempQuery.includes(this.query);
-        this.suggestions = newSuggestion;
-        if(flag){
-          if(this.fillQuery.length)
-            this.query = this.tempQuery;
-          this.fillQuery = "";
-          this.tempQuery = this.query;
-          return;
-        }
-        this.tempQuery = this.query;
-        this.fillQuery = newSuggestion[0].slice(this.query.length);
-      } else {
-        this.fillQuery = "";
-        this.tempQuery = this.query;
-      }
-    },
-    handleSelect(suggestion) {
-      this.query = suggestion;
-      this.hideSuggestions();
-    },
-    showSuggestions() {
-      this.focus = true;
-    },
-    hideSuggestions() {
-      this.query += this.fillQuery;
-      this.fillQuery = "";
-      this.focus = false;
-      setTimeout(() => {
-        this.suggestions = [];
-      }, 200);
-    },
   },
 };
 </script>

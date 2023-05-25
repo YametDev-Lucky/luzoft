@@ -29,6 +29,18 @@
             </td>
           </tr>
           
+          <template v-if="product.collapsed == undefined">
+            <tr class="text-center">
+              <td
+                :colspan="headers.length"
+                class="text-center"
+                style="padding: 10px !important;margin: auto;"
+              >
+                <v-progress-circular indeterminate />
+              </td>
+            </tr>
+          </template>
+
           <template v-if="product.collapsed">
             <tr
               v-for="child in product.children"
@@ -46,7 +58,7 @@
     
     <tfoot v-show="!desserts.length">
       <tr>
-        <td colspan="17" class="text-center">
+        <td :colspan="headers.length" class="text-center">
           <p>No data available</p>
         </td>
       </tr>
@@ -84,8 +96,19 @@
     }),
     methods: {
       collapse: function(index){
-        this.desserts[index].collapsed = 
-          !this.desserts[index].collapsed;
+        if (this.desserts[index].collapsed == undefined)
+          return;
+
+        if (this.desserts[index].collapsed == true){
+          this.desserts[index].collapsed = 
+            !this.desserts[index].collapsed;
+        }
+        else {
+          this.desserts[index].collapsed = undefined;
+          setTimeout(() => {
+            this.desserts[index].collapsed = true;
+          }, 2000);
+        }
       }
     },
   }

@@ -281,6 +281,10 @@
   margin : 10px;
 }
 
+.v-responsive__sizer {
+  max-width: 0px !important;
+}
+
 .bordered {
   border: 1px solid grey;
   height: 100%;
