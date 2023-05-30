@@ -194,7 +194,7 @@ export default {
   data: () => ({
     input: null,
     srcBoxOpened: false,
-    addBoxOpened: true,
+    addBoxOpened: false,
     texttab: null,
     textData: [
       {
