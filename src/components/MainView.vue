@@ -20,39 +20,18 @@
       <!-- TopView -->
       <v-row align="start">
 
-        <v-col cols="3">
+        <v-col cols="5">
           <v-row>
-            <v-btn class="mg" flat color="primary" rounded="0">
-              {{ globalStore.tpp.tranid }}
-            </v-btn>
-            <v-btn class="mg" flat color="primary" rounded="0">
-              MSp
-            </v-btn>
-          </v-row>
+            <v-col cols="8">
+              <v-btn class="mg" flat color="primary" rounded="0">
+                {{ globalStore.tpp.tranid }}
+              </v-btn>
+              <v-btn class="mg" flat color="primary" rounded="0">
+                MSp
+              </v-btn>
+            </v-col>
 
-          <v-row align="center">
-            <v-col cols="3">
-              <b>Payor:</b>
-            </v-col>
-            <v-col cols="9">
-              <AutoComplete :items="items" :payor="globalStore.tpp.custbody_fc_tpp_payor" />
-            </v-col>
-          </v-row>
-
-          <v-row align="center">
-            <v-col cols="3">
-              <b>Payment #:</b>
-            </v-col>
-            <v-col cols="9">
-              <v-text-field :model-value="globalStore.tpp.custbody_fc_tpp_paymentnum" variant="outlined"
-                density="compact" />
-            </v-col>
-          </v-row>
-        </v-col>
-
-        <v-col cols="9">
-          <v-row>
-            <v-col cols="2">
+            <v-col cols="4">
               <p>Date: </p>
               <VueDatePicker
                 v-model="date"
@@ -61,15 +40,42 @@
                 :format="format"
               />
 
+            </v-col>
+          </v-row>
+
+          <v-row align="center">
+            <v-col cols="2">
+              <b>Payor:</b>
+            </v-col>
+            <v-col cols="6">
+              <AutoComplete :items="items" :payor="globalStore.tpp.custbody_fc_tpp_payor" />
+            </v-col>
+            <v-col cols="4">
               <p><b>Designated Invoices - Total Count:</b></p>
               <p>2</p>
               <p />
+            </v-col>
+          </v-row>
 
+          <v-row align="center">
+            <v-col cols="2">
+              <b>Payment #:</b>
+            </v-col>
+            <v-col cols="6">
+              <v-text-field :model-value="globalStore.tpp.custbody_fc_tpp_paymentnum" variant="outlined"
+                density="compact" />
+            </v-col>
+            <v-col cols="4">
               <p><b>Total Designated Amount: </b></p>
               <p>${{ globalStore.tpp.custbody_fc_tpp_paymentamount }}</p>
             </v-col>
+          </v-row>
+        </v-col>
 
-            <v-col cols="4">
+        <v-col cols="7">
+          <v-row>
+
+            <v-col cols="5">
               <div style="border: 1px solid grey; height: 100%;">
                 <v-tabs v-model="texttab" color="primary">
                   <v-tab v-for="(item, i) in textData" :value="i" class="text-uppercase">
@@ -96,7 +102,7 @@
               </div>
             </v-col>
 
-            <v-col cols="3">
+            <v-col cols="4">
               <div style="border: 2px solid rgb(25, 118, 210);">
                 <v-card style="padding: 10px;">
                   <v-card-title>Summary</v-card-title>
