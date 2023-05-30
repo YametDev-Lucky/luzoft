@@ -1,15 +1,18 @@
 <template>
-  <div class="fill-height align-center d-flex">
+  <div class="fill-height align-center">
     <AppBar :errorString="globalStore.error" />
-    <v-progress-linear
-      v-if="globalStore.loading"
-      indeterminate
-      style="margin-bottom: auto;"
-    />
+    <v-responsive>
+      <v-progress-linear
+        v-if="globalStore.loading"
+        indeterminate
+        style="margin-bottom: auto;"
+      />
+    </v-responsive>
 
-    <v-responsive v-if="!globalStore.loading" 
+    <v-responsive 
       class="d-flex fill-height padding"
     >
+
       <div class="d-flex justify-between" style="margin-bottom: 10px;">
         <h2>Third Party Payment</h2>
         <v-btn size="large" color="blue-grey" append-icon="mdi-menu-down">
@@ -164,6 +167,7 @@
           :dessertsData="item.desserts"
           :pageCount="Math.ceil(item.desserts.length / 10)"
           :addFunction="openAppendBox"
+          :dispFunction="display"
         />
       </template>
     </v-responsive>
@@ -263,6 +267,9 @@ export default {
       const year = date.getFullYear();
 
       return `${month}/${day}/${year}`;
+    },
+    display(flag) {
+      this.globalStore.loading = flag;
     },
     openAppendBox() {
       this.addBoxOpened = true;

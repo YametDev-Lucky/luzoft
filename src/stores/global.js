@@ -30,7 +30,7 @@ const devStore = {
         this.remoteUrl = body.remoteUrl;
         this.loading = false;
       } catch (error) {
-        // this.error = error;
+        this.error = error;
       }
     },
     async getTPPInfo(tppId) {
@@ -39,7 +39,7 @@ const devStore = {
         const body = tppData;
         console.log(body);
         this.tpp = body;
-        setTimeout(() => {this.loading = false;}, 5000);
+        this.loading = false;
       } catch (error) {
         this.error = error;
       }

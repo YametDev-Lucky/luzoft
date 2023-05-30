@@ -37,7 +37,7 @@
                 class="text-center"
                 style="padding: 10px !important;margin: auto;"
               >
-                <v-progress-linear indeterminate />
+                <p>Loading...</p>
               </td>
             </tr>
           </template>
@@ -90,6 +90,7 @@
       'dessertsData',
       'addPossible',
       'addFunction',
+      'dispFunction',
     ],
     data: (props) => ({
       tab: null,
@@ -112,8 +113,10 @@
         }
         else {
           this.desserts[index].collapsed = undefined;
+          this.$props.dispFunction(true);
           setTimeout(() => {
             this.desserts[index].collapsed = true;
+          this.$props.dispFunction(false);
           }, 2000);
         }
       },
