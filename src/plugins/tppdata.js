@@ -1,0 +1,22 @@
+export default {
+  tranid: 'TPP100001',
+  custbody_fc_tpp_lastautosave: '06/21/2022 1:00:58 pm',
+  custbody_fc_tpp_lastautosaveby: '',
+  custbody_fc_tpp_lastmodified: '',
+  custbody_fc_tpp_lastmodifiedby: '',
+  custbody__pi_msp: '1740',
+  custbody_fc_tpp_original_pay_customer: '',
+  custbody_fc_tpp_original_pay_reference: 'Ref #&nbsp;&nbsp;&nbsp; : Amt $',
+  custbody_fc_tpp_resarch_hold_ck: false,
+  custbody_fc_tpp_amount_remain: '',
+  custbody_fc_tpp_aracct: '11010 Accounts Receivable : Accounts Receivable Trade',
+  custbody_fc_tpp_cashaccount: '10030 Cash & Cash Equivalents : WF Lockbox 8503',
+  custbody_fc_tpp_paymentamount: '4159.81',
+  custbody_fc_tpp_paymentnum: 'IA000125765114',
+  custbody_fc_tpp_payor: 'CL01632 Supplemental Healthcare',
+  custbody_fc_tpp_payor_clienttype: '1',
+  custbody_fc_likelyapplication: '',
+  custbody_fc_likelyrefund: '',
+  custbody_fc_researchrequiredamount_tpp: 'ERROR: Invalid Expression',
+  cseg_fc_msp: '33'
+};

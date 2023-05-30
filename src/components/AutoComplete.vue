@@ -1,30 +1,46 @@
 <template>
   <v-autocomplete
     v-model="query"
-    :items="items"
+    :items="labels"
     append-inner-icon="mdi-magnify"
     auto-select-first
     class="flex-full-width"
     density="comfortable"
     item-props
     menu-icon=""
-    placeholder="Search Luzoft"
+    placeholder="Search"
+    hide-no-data
     rounded
     theme="light"
     variant="outlined"
+    @input="handleInput"
   />
 </template>
 
 <script>
 export default {
   name: "Autocomplete",
-  props: ['items'],
+  props: {
+    items: {
+      type: Array,
+      default: [],
+    },
+    payor: {
+      type: String
+    }
+  },
   data(props) {
     return {
-      labels: props.items,
+      itmes: props.items,
+      labels: [],
       query: "",
     };
   },
+  methods: {
+    handleInput(event) {
+      this.labels = event.target.value.length ? this.items : [];
+    },
+  }
 };
 </script>
 

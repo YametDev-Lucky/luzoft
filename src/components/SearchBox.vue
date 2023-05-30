@@ -17,13 +17,13 @@
         />
         
         <p>Traveler:</p>
-        <v-combobox :items="items" variant="outlined" density="compact"/>
+        <AutoComplete :items="items" />
         
         <p>Invoice #:</p>
         <v-text-field variant="outlined" density="compact"/>
         
         <p>Facility #:</p>
-        <v-combobox :items="items" variant="outlined" density="compact"/>
+        <AutoComplete :items="items" />
       </v-container>
     </v-card-text>
     <v-container>
@@ -52,6 +52,7 @@
 
 <script>
   import VueDatePicker from '@vuepic/vue-datepicker';
+  import AutoComplete from './AutoComplete.vue';
   import { ref } from 'vue';
   
   export default {
@@ -71,6 +72,7 @@
     }),
     components: {
       VueDatePicker,
+      AutoComplete,
     },
     watch: {
       dialog (state) {

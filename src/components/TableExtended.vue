@@ -32,11 +32,11 @@
           <template v-if="product.collapsed == undefined">
             <tr class="text-center">
               <td
-                :colspan="headers.length"
+                :colspan="headers.length + 1"
                 class="text-center"
                 style="padding: 10px !important;margin: auto;"
               >
-                <v-progress-circular indeterminate />
+                <v-progress-linear indeterminate />
               </td>
             </tr>
           </template>
