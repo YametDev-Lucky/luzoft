@@ -41,7 +41,7 @@ const devStore = {
         this.tpp = body;
         setTimeout(() => {this.loading = false;}, 5000);
       } catch (error) {
-        // this.error = error;
+        this.error = error;
       }
     }
 
@@ -73,7 +73,7 @@ const productionStore = {
         this.tpp = body;
         this.loading = false;
       } catch (error) {
-        // this.error = error;
+        this.error = error;
       }
     }
 

@@ -7,6 +7,7 @@
             rounded="0"
             color="primary"
             style="min-width: 0px;"
+            @click="addFunction"
           >+</v-btn>
         </td>
         <td v-for="header in headers">{{ header.title }}</td>
@@ -83,7 +84,13 @@
 <script>
 
   export default {
-    props: ['pageCount', 'headersData', 'dessertsData', 'addPossible'],
+    props: [
+      'pageCount',
+      'headersData',
+      'dessertsData',
+      'addPossible',
+      'addFunction',
+    ],
     data: (props) => ({
       tab: null,
       headers: props.headersData,
@@ -109,7 +116,7 @@
             this.desserts[index].collapsed = true;
           }, 2000);
         }
-      }
+      },
     },
   }
 </script>

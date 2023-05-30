@@ -13,7 +13,8 @@
           v-model="date"
           placeholder="Start Typing ..."
           text-input
-          text-input-options="textInputOptions"
+          :text-input-options="textInputOptions"
+          :format="format"
         />
         
         <p>Traveler:</p>
@@ -60,7 +61,7 @@
     data: (props) => ({
       date: ref(),
       textInputOptions: ref({
-        format: 'MM/dd/yyyy'
+        format: 'M/d/yyyy'
       }),
       dialog: props.showbox,
       items: [
@@ -80,6 +81,15 @@
         console.log("New Dialog Status", state);
       }
     },
+    methods: {
+      format(date) {
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+
+        return `${month}/${day}/${year}`;
+      },
+    }
   }
 </script>
 

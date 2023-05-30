@@ -1,11 +1,11 @@
 <template>
   <v-app-bar>
-    <v-app-bar-title>
+    <v-app-bar-title scroll-behavior="elevate">
       <div class="d-flex" style="justify-content: space-between;">
         <div>
           <v-icon icon="mdi-circle-slice-4" />
 
-          Base Preset
+          Luzoft Vuetify
         </div>
         <p style="padding-right: 20px; color: red;">
           {{ errorString }}

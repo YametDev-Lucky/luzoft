@@ -1,6 +1,11 @@
 <template>
   <div class="fill-height align-center d-flex">
     <AppBar :errorString="globalStore.error" />
+    <v-progress-linear
+      v-if="globalStore.loading"
+      indeterminate
+      style="margin-bottom: auto;"
+    />
 
     <v-responsive v-if="!globalStore.loading" 
       class="d-flex fill-height padding"
@@ -49,8 +54,12 @@
           <v-row>
             <v-col cols="2">
               <p>Date: </p>
-              <VueDatePicker v-model="date" :placeholder="globalStore.tpp.custbody_fc_tpp_lastautosave" text-input
-                :text-input-options="textInputOptions" />
+              <VueDatePicker
+                v-model="date"
+                text-input
+                :text-input-options="textInputOptions"
+                :format="format"
+              />
 
               <p><b>Designated Invoices - Total Count:</b></p>
               <p>2</p>
@@ -136,47 +145,56 @@
         <v-tab v-for="(item, index) in tableData" :key="index" :value="index">{{ item.tabName }}</v-tab>
 
         <v-btn class="right-side" variant="plain" :ripple="false" flat size="xsmall" rounded="0"
-          @click="dialogOpened = true">
+          @click="srcBoxOpened = true">
           <v-icon color="primary" icon="mdi-filter"></v-icon>
         </v-btn>
       </v-tabs>
 
       <!-- TableView -->
       <template v-for="(item, index) in tableData">
-        <TableExtended v-if="index == tabletab" :addPossible="index == 3" :headersData="item.headers"
-          :dessertsData="item.desserts" :pageCount="Math.ceil(item.desserts.length / 10)" />
+        <TableExtended v-if="index == tabletab"
+          :addPossible="index == 3"
+          :headersData="item.headers"
+          :dessertsData="item.desserts"
+          :pageCount="Math.ceil(item.desserts.length / 10)"
+          :addFunction="openAppendBox"
+        />
       </template>
     </v-responsive>
 
     <Sidebar />
 
-    <v-dialog v-model="dialogOpened" width="365" >
+    <v-dialog v-model="srcBoxOpened" width="365" >
       <SearchBox />
     </v-dialog>
 
-    <v-dialog v-model="globalStore.loading" persistent >
-      <v-progress-circular indeterminate style="margin: auto;" />
+    
+    <v-dialog v-model="addBoxOpened" >
+      <AddOverpay :close="closeAppendBox"/>
     </v-dialog>
+
   </div>
 </template>
 
 <script>
-import Sidebar from '@/components/Sidebar.vue';
-import TableExtended from './TableExtended.vue';
-import VueDatePicker from '@vuepic/vue-datepicker';
-import AutoComplete from './AutoComplete.vue';
-import SearchBox from './SearchBox.vue';
 import '@vuepic/vue-datepicker/dist/main.css'
 import { ref } from 'vue';
-import table from '@/plugins/tabledata';
 import { mapStores } from 'pinia'
 import { useGlobalStore } from "@/stores/global"
+import Sidebar from '@/components/Sidebar.vue';
+import VueDatePicker from '@vuepic/vue-datepicker';
+import table from '@/plugins/tabledata';
 import AppBar from '@/layouts/default/AppBar.vue';
+import AutoComplete from './AutoComplete.vue';
+import SearchBox from './SearchBox.vue';
+import TableExtended from './TableExtended.vue';
+import AddOverpay from './AddOverpay.vue';
 
 export default {
   data: () => ({
     input: null,
-    dialogOpened: false,
+    srcBoxOpened: false,
+    addBoxOpened: true,
     texttab: null,
     textData: [
       {
@@ -206,7 +224,7 @@ export default {
       'Everything OK'
     ],
     date: ref(),
-    textInputOptions: ref({ format: 'MM/dd/yyyy' })
+    textInputOptions: ref({ format: 'M/d/yyyy' })
   }),
   components: {
     AutoComplete,
@@ -215,12 +233,13 @@ export default {
     VueDatePicker,
     SearchBox,
     AppBar,
+    AddOverpay,
   },
   watch: {
     input() {
       console.log(this.input);
     },
-    dialogOpened(state) {
+    srcBoxOpened(state) {
       console.log("State sent", state);
     }
   },
@@ -231,6 +250,19 @@ export default {
         result = result + item.tabName + '\n' + val + '\n';
       })
       return result;
+    },
+    format(date) {
+      const day = date.getDate();
+      const month = date.getMonth() + 1;
+      const year = date.getFullYear();
+
+      return `${month}/${day}/${year}`;
+    },
+    openAppendBox() {
+      this.addBoxOpened = true;
+    },
+    closeAppendBox() {
+      this.addBoxOpened = false;
     },
   },
   computed: {
