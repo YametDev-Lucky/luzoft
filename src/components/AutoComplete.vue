@@ -8,8 +8,6 @@
     density="comfortable"
     item-props
     menu-icon=""
-    placeholder="Search"
-    hide-no-data
     rounded
     theme="light"
     variant="outlined"
@@ -31,14 +29,14 @@ export default {
   },
   data(props) {
     return {
-      itmes: props.items,
+      currentItems: props.items,
       labels: [],
       query: "",
     };
   },
   methods: {
     handleInput(event) {
-      this.labels = event.target.value.length ? this.items : [];
+      this.labels = event.target.value.length ? this.currentItems : [];
     },
   }
 };

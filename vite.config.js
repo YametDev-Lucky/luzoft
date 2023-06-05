@@ -20,6 +20,7 @@ export default defineConfig({
         configFile: 'src/styles/settings.scss'
       }
     }),
+    viteSingleFile()
   ],
   define: { 'process.env': {} },
   resolve: {

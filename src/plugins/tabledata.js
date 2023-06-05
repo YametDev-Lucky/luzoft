@@ -2,218 +2,70 @@ export default [
   {
     tabName: 'Facility',
     headers: [
-      { title: 'FACILITY', key: 'facility' },
-      { title: '#', key: 'sharp' },
-      { title: 'WEEK ENDING', key: 'weekending' },
+      { title: 'FACILITY', key: 'entity_txt' },
+      { title: '#', key: 'tppdi' },
+      { title: 'WEEK ENDING', key: 'enddate' },
       { title: 'INV PAID', key: 'invpaid' },
-      { title: 'INVOICE #', key: 'invoice' },
-      { title: 'INV DATE', key: 'invdate' },
-      { title: 'INV TOTAL', key: 'invtotal' },
-      { title: 'UNPAID AMT', key: 'unpaidamt' },
-      { title: 'UNPAID NOTE', key: 'unpaidnote' },
-      { title: 'MSP REF #', key: 'mspref' },
-      { title: 'AMT DISPUTED', key: 'amtdisputed' },
-      { title: 'DISPUTE NOTE', key: 'disputenote' },
-      { title: 'PMT #', key: 'pmt' },
-      { title: 'DEDUCT.AMT', key: 'deductamt' },
-      { title: 'AMT RECEIVED', key: 'amtreceived' },
-      { title: 'AMT APPLIED', key: 'amtapplied' },
+      { title: 'INVOICE #', key: 'tranid' },
+      { title: 'INV DATE', key: 'trandate' },
+      { title: 'INV TOTAL', key: 'total' },
+      { title: 'UNPAID AMT', key: 'custrecord_fc_tppdi_di_unpaid_amount' },
+      { title: 'UNPAID NOTE', key: 'custrecord_fc_tppdi_di_unpaid_note' },
+      { title: 'MSP REF #', key: 'custbody__pi_msp_ref_number' },
+      { title: 'AMT DISPUTED', key: 'custrecord_fc_tppdi_di_dispute_amount' },
+      { title: 'DISPUTE NOTE', key: 'custrecord_fc_tppdi_di_dispute_note' },
+      { title: 'PMT #', key: 'custrecord_fc_tppdi_thirdpartypayment_txt' },
+      { title: 'DEDUCT.AMT', key: 'custrecord_fc_tppdi_dp_deduct_amount' },
+      { title: 'AMT RECEIVED', key: 'am' },
+      { title: 'AMT APPLIED', key: 'amtapplied' }
     ],
     desserts: [
       {
         collapsed: false,
-        children: [],
-        facility: 'Alta Bates Medical Center - Ashby',
-        sharp: '10',
-        weekending: '',
-        invpaid: '5',
-        invoice: '',
-        invdate: '',
-        invtotal: '56,813.00',
-        unpaidamt: '100.00',
-        unpaidnote: '',
-        mspref: '',
-        amtdisputed: '',
-        disputenote: '',
-        pmt: '',
-        deductamt: '',
-        amtreceived: '56,813.00',
-        amtapplied: '4,551.17',
+        tppdi: '174',
+        custrecord_fc_tppdi_designatedinvoice: '8990202',
+        custrecord_fc_tppdi_designatedinvoice_txt: 'Invoice #IN32996502',
+        custrecord_fc_tppdi_thirdpartypayment: '9582694',
+        custrecord_fc_tppdi_thirdpartypayment_txt: 'Third Party Payment #TPP100001',
+        custrecord_fc_tppdi_disbursementpayment: '9600587',
+        custrecord_fc_tppdi_disbursementpayment_txt: 'Payment #P100200',
+        custrecord_fc_tppdi_tpp_disburse_amount: '4159.81',
+        custrecord_fc_tppdi_dp_deduct_item: '',
+        custrecord_fc_tppdi_dp_deduct_item_txt: '',
+        custrecord_fc_tppdi_dp_deduct_amount: '',
+        custrecord_fc_tppdi_di_total_appl: '',
+        custrecord_fc_tppdi_di_dispute_amount: '',
+        custrecord_fc_tppdi_tpp_payor: 'CL01632 Supplemental Healthcare',
+        custrecord_fc_tppdi_di_client: '1165',
+        custrecord_fc_tppdi_di_client_txt: 'CL01057 Lancaster General Hospital',
+        custrecord_fc_tppdi_di_msp: 'Supplemental Healthcare',
+        custrecord_fc_tppdi_di_tranid: 'IN32996502',
+        custrecord_fc_tppdi_di_invrefnum: '',
+        custrecord_fc_tppdi_di_date: '12/29/2021',
+        custrecord_fc_tppdi_di_total: '4159.81',
+        custrecord_fc_tppdi_di_aracct: '213',
+        custrecord_fc_tppdi_di_aracct_txt: '11010 Accounts Receivable : Accounts Receivable Trade',
+        custrecord_fc_tppdi_di_unpaid_amount: '.00',
+        custrecord_fc_tppdi_di_unpaid_note: '',
+        custrecord_fc_tppdi_di_dispute_note: '',
+        custrecord_fc_tppdi_dp_tranid: 'P100200',
+        custrecord_fc_tppdi_dp_net_applied: '4159.81',
+        internalid: '8990202',
+        internalid_txt: '8990202',
+        total: '4159.81',
+        amountpaid: '.00',
+        tranid: 'IN32996502',
+        entity: '369477',
+        entity_txt: 'AC37193 Lancaster General Hospital : OC-000051911',
+        trandate: '12/29/2021',
+        enddate: '',
+        amountremaining: '',
+        custbody__pi_msp_ref_number: '',
+        custbody__pi_inv_traveler: '3243',
+        custbody__pi_inv_traveler_txt: 'Christopher Jaeger A5LU',
+        custbody_fc_unpaid_note: ''
       },
-      {
-        collapsed: false,
-        children: [],
-        facility: 'Another Healthcare Facility',
-        sharp: '13',
-        weekending: '',
-        invpaid: '32',
-        invoice: '',
-        invdate: '',
-        invtotal: '12,515.63',
-        unpaidamt: '25.37',
-        unpaidnote: '',
-        mspref: '',
-        amtdisputed: '',
-        disputenote: '',
-        pmt: '',
-        deductamt: '',
-        amtreceived: '12,515.63',
-        amtapplied: '12,615.63',
-      },
-      {
-        collapsed: false,
-        children: [],
-        facility: 'I Heart You Facility',
-        sharp: '10',
-        weekending: '',
-        invpaid: '2',
-        invoice: '',
-        invdate: '',
-        invtotal: '23,561.34',
-        unpaidamt: '',
-        unpaidnote: '',
-        mspref: '',
-        amtdisputed: '',
-        disputenote: '',
-        pmt: '',
-        deductamt: '',
-        amtreceived: '23,561.34',
-        amtapplied: '23,561.34',
-      },
-      {
-        collapsed: false,
-        children: [],
-        facility: 'FlexCare Facility',
-        sharp: '2',
-        weekending: '',
-        invpaid: '3',
-        invoice: '',
-        invdate: '',
-        invtotal: '5,651.52',
-        unpaidamt: '',
-        unpaidnote: '',
-        mspref: '',
-        amtdisputed: '',
-        disputenote: '',
-        pmt: '',
-        deductamt: '',
-        amtreceived: '5,651.52',
-        amtapplied: '5,651.52',
-      },
-      {
-        collapsed: false,
-        children: [],
-        facility: 'FlexyCare Facility',
-        sharp: '8',
-        weekending: '',
-        invpaid: '5',
-        invoice: '6,651.87',
-        invdate: '',
-        invtotal: '',
-        unpaidamt: '',
-        unpaidnote: '',
-        mspref: '',
-        amtdisputed: '',
-        disputenote: '',
-        pmt: '',
-        deductamt: '',
-        amtreceived: '6,651.87',
-        amtapplied: '6,651.87',
-      },
-      {
-        collapsed: true,
-        children: [
-          {
-            facility: 'Mount Sinai West',
-            sharp: '',
-            weekending: '04/01/2023',
-            invpaid: '2',
-            invoice: 'IN4776313',
-            invdate: '5',
-            invtotal: '4,271.40',
-            unpaidamt: '113.52',
-            unpaidnote: '',
-            mspref: '14639757',
-            amtdisputed: '',
-            disputenote: 'warn',
-            pmt: '',
-            deductamt: '',
-            amtreceived: '3,330.47',
-            amtapplied: '3,337.44',
-          },
-          {
-            facility: 'Mount Sinai West',
-            sharp: '',
-            weekending: '04/01/2023',
-            invpaid: '2',
-            invoice: 'IN4776313',
-            invdate: '5',
-            invtotal: '4,271.40',
-            unpaidamt: '113.52',
-            unpaidnote: '',
-            mspref: '14639757',
-            amtdisputed: '',
-            disputenote: 'warn',
-            pmt: '',
-            deductamt: '',
-            amtreceived: '3,330.47',
-            amtapplied: '3,337.44',
-          },
-          {
-            facility: 'Mount Sinai West',
-            sharp: '',
-            weekending: '04/01/2023',
-            invpaid: '2',
-            invoice: 'IN4776313',
-            invdate: '5',
-            invtotal: '4,271.40',
-            unpaidamt: '113.52',
-            unpaidnote: '',
-            mspref: '14639757',
-            amtdisputed: '',
-            disputenote: 'warn',
-            pmt: '',
-            deductamt: '',
-            amtreceived: '3,330.47',
-            amtapplied: '3,337.44',
-          },
-          {
-            facility: 'Mount Sinai West',
-            sharp: '',
-            weekending: '04/01/2023',
-            invpaid: '2',
-            invoice: 'IN4776313',
-            invdate: '5',
-            invtotal: '4,271.40',
-            unpaidamt: '113.52',
-            unpaidnote: '',
-            mspref: '14639757',
-            amtdisputed: '',
-            disputenote: 'warn',
-            pmt: '',
-            deductamt: '',
-            amtreceived: '3,330.47',
-            amtapplied: '3,337.44',
-          },
-        ],
-        facility: 'Mount Sinai West',
-        sharp: '5',
-        weekending: '',
-        invpaid: '32',
-        invoice: '',
-        invdate: '',
-        invtotal: '43,346.74',
-        unpaidamt: '1,845.13',
-        unpaidnote: '',
-        mspref: '',
-        amtdisputed: '',
-        disputenote: '',
-        pmt: '',
-        deductamt: '100.00',
-        amtreceived: '22,346.74',
-        amtapplied: '22,346.74'
-      },
-    ],
+    ]
   },
   {
     tabName: 'Health System',
@@ -233,9 +85,9 @@ export default [
       { title: 'PMT #', key: 'pmt' },
       { title: 'DEDUCT.AMT', key: 'deductamt' },
       { title: 'AMT RECEIVED', key: 'amtreceived' },
-      { title: 'AMT APPLIED', key: 'amtapplied' },
+      { title: 'AMT APPLIED', key: 'amtapplied' }
     ],
-    desserts: [],
+    desserts: []
   },
   {
     tabName: 'Week Ending',
@@ -255,12 +107,12 @@ export default [
       { title: 'PMT #', key: 'pmt' },
       { title: 'DEDUCT.AMT', key: 'deductamt' },
       { title: 'AMT RECEIVED', key: 'amtreceived' },
-      { title: 'AMT APPLIED', key: 'amtapplied' },
+      { title: 'AMT APPLIED', key: 'amtapplied' }
     ],
-    desserts: [],
+    desserts: []
   },
   {
-    tabName : 'Client Overpayment',
+    tabName: 'Client Overpayment',
     headers: [
       { title: 'Overpaid Invoice', key: 'invoice' },
       { title: 'Overpaid Traveler', key: 'traveler' },
@@ -270,7 +122,7 @@ export default [
       { title: 'Resolution Type', key: 'type' },
       { title: 'Resolution Refund Amount', key: 'refund' },
       { title: 'Resolution Applied Amount', key: 'applied' },
-      { title: 'Customer Refund Transaction', key: 'customer' },
+      { title: 'Customer Refund Transaction', key: 'customer' }
     ],
     desserts: [
       {
@@ -284,7 +136,7 @@ export default [
         refund: '56,813.00',
         applied: '4,551.17',
         customer: '',
-        children: [],
+        children: []
       },
       {
         collapsed: false,
@@ -297,7 +149,7 @@ export default [
         refund: '	12,515.63',
         applied: '	12,515.63',
         customer: '',
-        children: [],
+        children: []
       },
       {
         collapsed: false,
@@ -310,7 +162,7 @@ export default [
         refund: '23,561.34',
         applied: '23,561.34',
         customer: '',
-        children: [],
+        children: []
       },
       {
         collapsed: false,
@@ -323,7 +175,7 @@ export default [
         refund: '5,651.52',
         applied: '5,651.52',
         customer: '',
-        children: [],
+        children: []
       },
       {
         collapsed: false,
@@ -336,7 +188,7 @@ export default [
         refund: '6,651.87',
         applied: '6,651.87',
         customer: '',
-        children: [],
+        children: []
       },
       {
         collapsed: false,
@@ -359,7 +211,7 @@ export default [
             type: '',
             refund: '3,330.47',
             applied: '3,337.44',
-            customer: '',
+            customer: ''
           },
           {
             invoice: '2',
@@ -370,7 +222,7 @@ export default [
             type: '',
             refund: '3,330.47',
             applied: '3,337.44',
-            customer: '',
+            customer: ''
           },
           {
             invoice: '1',
@@ -381,7 +233,7 @@ export default [
             type: '',
             refund: '3,330.47',
             applied: '3,337.44',
-            customer: '',
+            customer: ''
           },
           {
             invoice: '8',
@@ -392,9 +244,9 @@ export default [
             type: '',
             refund: '3,330.47',
             applied: '3,337.44',
-            customer: '',
-          },
-        ],
+            customer: ''
+          }
+        ]
       },
       {
         collapsed: false,
@@ -407,7 +259,7 @@ export default [
         refund: '56,813.00',
         applied: '4,551.17',
         customer: '',
-        children: [],
+        children: []
       },
       {
         collapsed: false,
@@ -420,7 +272,7 @@ export default [
         refund: '	12,515.63',
         applied: '	12,515.63',
         customer: '',
-        children: [],
+        children: []
       },
       {
         collapsed: false,
@@ -433,7 +285,7 @@ export default [
         refund: '23,561.34',
         applied: '23,561.34',
         customer: '',
-        children: [],
+        children: []
       },
       {
         collapsed: false,
@@ -446,7 +298,7 @@ export default [
         refund: '5,651.52',
         applied: '5,651.52',
         customer: '',
-        children: [],
+        children: []
       },
       {
         collapsed: false,
@@ -459,7 +311,7 @@ export default [
         refund: '6,651.87',
         applied: '6,651.87',
         customer: '',
-        children: [],
+        children: []
       },
       {
         collapsed: false,
@@ -482,7 +334,7 @@ export default [
             type: '',
             refund: '3,330.47',
             applied: '3,337.44',
-            customer: '',
+            customer: ''
           },
           {
             invoice: '2',
@@ -493,7 +345,7 @@ export default [
             type: '',
             refund: '3,330.47',
             applied: '3,337.44',
-            customer: '',
+            customer: ''
           },
           {
             invoice: '1',
@@ -504,7 +356,7 @@ export default [
             type: '',
             refund: '3,330.47',
             applied: '3,337.44',
-            customer: '',
+            customer: ''
           },
           {
             invoice: '8',
@@ -515,30 +367,30 @@ export default [
             type: '',
             refund: '3,330.47',
             applied: '3,337.44',
-            customer: '',
-          },
-        ],
-      },
-    ],
+            customer: ''
+          }
+        ]
+      }
+    ]
   },
   {
-    tabName : 'Existing Insufficient Funds',
+    tabName: 'Existing Insufficient Funds',
     headers: [
       { title: 'Insufficient Funds Transaction', key: 'transaction' },
       { title: 'Insufficient Funds Check / Payment #', key: 'check' },
-      { title: 'Insufficient Funds Amount', key: 'amount' },
+      { title: 'Insufficient Funds Amount', key: 'amount' }
     ],
-    desserts: [],
+    desserts: []
   },
-  {
-    tabName : 'Existing Applied To Invoice',
-    headers: [
-      { title: 'Appled To Invoice', key: 'invoice' },
-      { title: 'Applied To Traveler', key: 'traveler' },
-      { title: 'Applied To Week Ending', key: 'weekending' },
-      { title: 'Applied to Facility', key: 'facility' },
-      { title: 'Applied to Amount', key: 'amount' },
-    ],
-    desserts: [],
-  },
+  // {
+  //   tabName: 'Existing Applied To Invoice',
+  //   headers: [
+  //     { title: 'Appled To Invoice', key: 'invoice' },
+  //     { title: 'Applied To Traveler', key: 'traveler' },
+  //     { title: 'Applied To Week Ending', key: 'weekending' },
+  //     { title: 'Applied to Facility', key: 'facility' },
+  //     { title: 'Applied to Amount', key: 'amount' }
+  //   ],
+  //   desserts: []
+  // }
 ];

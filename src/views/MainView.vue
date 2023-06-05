@@ -1,13 +1,9 @@
 <template>
   <div class="fill-height align-center">
-    <AppBar :errorString="globalStore.error" />
-    <v-responsive>
-      <v-progress-linear
-        v-if="globalStore.loading"
-        indeterminate
-        style="margin-bottom: auto;"
-      />
-    </v-responsive>
+    <AppBar
+      :errorString="globalStore.error"
+      :loading="globalStore.loading"
+    />
 
     <v-responsive 
       class="d-flex fill-height padding"
@@ -15,26 +11,30 @@
 
       <div class="d-flex justify-between" style="margin-bottom: 10px;">
         <h2>Third Party Payment</h2>
+        <div class="d-flex">
         <v-btn size="large" color="blue-grey" append-icon="mdi-menu-down">
           Research Hold
         </v-btn>
+        <v-checkbox label="Research Hold"></v-checkbox>
+        </div>
       </div>
-
       <!-- TopView -->
       <v-row align="start">
 
         <v-col cols="5">
+
           <v-row>
-            <v-col cols="8">
+
+            <v-col cols="6">
               <v-btn class="mg" flat color="primary" rounded="0">
                 {{ globalStore.tpp.tranid }}
               </v-btn>
               <v-btn class="mg" flat color="primary" rounded="0">
-                MSp
+                {{ globalStore.tpp.custbody_fc_tpp_payor_clienttype }}
               </v-btn>
             </v-col>
 
-            <v-col cols="4">
+            <v-col cols="6">
               <p>Date: </p>
               <VueDatePicker
                 v-model="date"
@@ -44,39 +44,54 @@
               />
 
             </v-col>
+
           </v-row>
 
           <v-row align="center">
+
             <v-col cols="2">
               <b>Payor:</b>
             </v-col>
-            <v-col cols="6">
+            <v-col cols="4">
               <AutoComplete :items="items" :payor="globalStore.tpp.custbody_fc_tpp_payor" />
             </v-col>
-            <v-col cols="4">
-              <p><b>Designated Invoices - Total Count:</b></p>
-              <p>2</p>
-              <p />
+            <v-col cols="6">
+
+              <p>
+                <b>Designated Invoices - Total Count:</b>
+                {{ totalDesignatedInvoices  }}
+              </p>
+
+              <p>
+                <b>Total Designated Amount: </b>
+                ${{ totalDesignatedAmount }}
+              </p>
+              
             </v-col>
+
           </v-row>
 
           <v-row align="center">
+
             <v-col cols="2">
               <b>Payment #:</b>
             </v-col>
-            <v-col cols="6">
+            <v-col cols="4">
               <v-text-field :model-value="globalStore.tpp.custbody_fc_tpp_paymentnum" variant="outlined"
                 density="compact" />
             </v-col>
-            <v-col cols="4">
-              <p><b>Total Designated Amount: </b></p>
-              <p>${{ globalStore.tpp.custbody_fc_tpp_paymentamount }}</p>
+            <v-col cols="6">
+              <p>
+                <b>Total Designated Amount: </b>
+                ${{ globalStore.tpp.custbody_fc_tpp_paymentamount }}
+              </p>
             </v-col>
+
           </v-row>
         </v-col>
 
         <v-col cols="7">
-          <!-- <v-row>
+          <v-row>
 
             <v-col cols="5">
               <div style="border: 1px solid grey; height: 100%;">
@@ -87,7 +102,7 @@
                 </v-tabs>
                 <v-window v-model="texttab">
                   <v-window-item v-for="(item, i) in textData" :key="i" :value="i">
-                    <span v-for="key in item.keys">{{ globalStore.tpp[key] }}</span>
+                    <span v-for="key in item.keys">{{ globalStore.tpp[key] }}</span><br />
                   </v-window-item>
                 </v-window>
               </div>
@@ -101,7 +116,7 @@
                 <v-card-text>
                   You can write your text here...
                 </v-card-text>
-                <v-textarea model-value="" maxlength="120" bg-color="white"></v-textarea>
+                <v-textarea :model-value="globalStore.tpp?.memo" maxlength="120" bg-color="white"></v-textarea>
               </div>
             </v-col>
 
@@ -122,7 +137,7 @@
                   <v-card-item>
                     <div class="d-flex justify carditem">
                       <b>Amount Applied: </b>
-                      <p>(${{ globalStore.applications?.totalApplied ?? "4159.81" }})</p>
+                      <p>(${{ totalDesignatedAmount }})</p>
                     </div>
                   </v-card-item>
 
@@ -138,15 +153,16 @@
                   <v-card-item>
                     <div class="d-flex justify carditem">
                       <b>Payment Amount Remaining: </b>
-                      <p>$0</p>
+                      <p>${{ globalStore.tpp.custbody_fc_tpp_amount_remain }}</p>
                     </div>
                   </v-card-item>
                 </v-card>
               </div>
             </v-col>
 
-          </v-row> -->
+          </v-row>
         </v-col>
+
       </v-row>
 
       <!-- TabView -->
@@ -160,7 +176,7 @@
       </v-tabs>
 
       <!-- TableView -->
-      <template v-for="(item, index) in tableData">
+      <template v-for="(item, index) in getTableData">
         <TableExtended v-if="index == tabletab"
           :addPossible="index == 3"
           :headersData="item.headers"
@@ -172,12 +188,11 @@
       </template>
     </v-responsive>
 
-    <Sidebar />
+    <Sidebar :globalStore="globalStore" :textData="textData" />
 
     <v-dialog v-model="srcBoxOpened" width="365" >
       <SearchBox />
     </v-dialog>
-
     
     <v-dialog v-model="addBoxOpened" >
       <AddOverpay :close="closeAppendBox"/>
@@ -195,16 +210,18 @@ import Sidebar from '@/components/Sidebar.vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import table from '@/plugins/tabledata';
 import AppBar from '@/layouts/default/AppBar.vue';
-import AutoComplete from './AutoComplete.vue';
-import SearchBox from './SearchBox.vue';
-import TableExtended from './TableExtended.vue';
-import AddOverpay from './AddOverpay.vue';
+import AutoComplete from '@/components/AutoComplete.vue';
+import SearchBox from '@/components/SearchBox.vue';
+import TableExtended from '@/components/TableExtended.vue';
+import AddOverpay from '@/components/AddOverpay.vue';
 
 export default {
   data: () => ({
+    researchHold: false,
     input: null,
     srcBoxOpened: false,
     addBoxOpened: false,
+    sideBarOpened: false,
     texttab: null,
     textData: [
       {
@@ -227,7 +244,9 @@ export default {
       },
     ],
     tabletab: null,
-    tableData: table,
+    tableData: [
+      ...table,
+    ],
     items: [
       'CL01632 Supplemental Healthcare',
       'Partially Designated',
@@ -280,9 +299,36 @@ export default {
   },
   computed: {
     ...mapStores(useGlobalStore),
+    totalDesignatedInvoices() {
+      return this.globalStore.appliedInvoices.length;
+    },
+    totalDesignatedAmount() {
+      return this.globalStore.appliedInvoices.reduce((agg, curr) => {
+        const temp = curr.custrecord_fc_tppdi_dp_net_applied;
+        const q = temp === "" ? 0 : (typeof temp === "string" ? parseFloat(temp) : temp);
+        return agg + q
+      }, 0);
+    },
+    getTableData() {
+      let newData = this.tableData;
+      newData.push({
+        
+        tabName: 'Existing Applied To Invoice',
+        headers: [
+          { title: 'Appled To Invoice', key: 'custrecord_fc_tppdi_designatedinvoice_txt' },
+          { title: 'Applied To Traveler', key: 'custbody__pi_inv_traveler' },
+          { title: 'Applied To Week Ending', key: 'trandate' },
+          { title: 'Applied to Facility', key: 'custbody__pi_inv_traveler_txt' },
+          { title: 'Applied to Amount', key: 'custrecord_fc_tppdi_dp_net_applied' }
+        ],
+        desserts: [...this.globalStore.appliedInvoices],
+      });
+      return newData;
+    }
   },
   mounted() {
     this.globalStore.getTPPInfo({});
+    this.globalStore.getDesignatedInvoices({});
   }
 }
 </script>

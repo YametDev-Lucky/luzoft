@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia';
 import tppData from '@/plugins/tppdata';
+import tppDiData from '@/plugins/designatedinvoicesdata';
+import tppdata from '@/plugins/tppdata';
 
 const getRemoteUrl = async () => {
   const host = new URL(window.location.href);
@@ -7,22 +9,29 @@ const getRemoteUrl = async () => {
   const response = await fetch(host.toString());
   return await response.json();
 };
+const parseTableData = data => {
+  return data.map(val => ({
+    ...val,
+    collapsed: false,
+  }))
+}
 const getTPPID = () => new URL(window.location.href).searchParams.get('tppId');
 
 const devStore = {
   state: () => ({
     remoteUrl: null,
-    error: "No error",
+    error: null,
     loading: false,
-    tpp: {}
+    tpp: {},
+    appliedInvoices: [],
   }),
   getters: {
   },
   actions: {
-    clearError() {
+    clearError () {
       this.error = null;
     },
-    async getRemoteUrl() {
+    async getRemoteUrl () {
       this.loading = true;
 
       try {
@@ -33,12 +42,21 @@ const devStore = {
         this.error = error;
       }
     },
-    async getTPPInfo(tppId) {
+    async getTPPInfo (tppId) {
       this.loading = true;
       try {
         const body = tppData;
-        console.log(body);
         this.tpp = body;
+        this.loading = false;
+      } catch (error) {
+        this.error = error;
+      }
+    },
+    async getDesignatedInvoices (params) {
+      this.loading = true;
+      try {
+        const body = tppDiData;
+        this.appliedInvoices = parseTableData(body);
         this.loading = false;
       } catch (error) {
         this.error = error;
@@ -50,7 +68,7 @@ const devStore = {
 const productionStore = {
   state: () => ({
     remoteUrl: null,
-    error: "No error.",
+    error: null,
     loading: false,
     tpp: {}
   }),
@@ -58,19 +76,40 @@ const productionStore = {
 
   },
   actions: {
-    clearError() {
+    clearError () {
       this.error = null;
     },
-    async getTPPInfo(tppId) {
+    async getTPPInfo () {
       try {
-        if (!this.remoteUrl) { this.remoteUrl = await getRemoteUrl(); }
+        if (!this.remoteUrl) { const response = await getRemoteUrl(); this.remoteUrl = response.remoteUrl; }
         const host = new URL(this.remoteUrl);
         host.searchParams.append('operation', 'TPP');
-        host.searchParams.append('id', getTPPID() ?? '9582694');
+        host.searchParams.append('id', getTPPID());
         this.loading = true;
         const response = await fetch(host.toString());
         const body = await response.json();
         this.tpp = body;
+        this.loading = false;
+      } catch (error) {
+        this.error = error;
+      }
+    },
+    async getDesignatedInvoices (params) {
+      const { limit, offset, group, sortingField, sortingDirection } = params;
+      try {
+        if (!this.remoteUrl) { const response = await getRemoteUrl(); this.remoteUrl = response.remoteUrl; }
+        const host = new URL(this.remoteUrl);
+        host.searchParams.append('operation', 'TPPDI');
+        host.searchParams.append('tppId', getTPPID());
+        if (limit) host.searchParams.append('limit', limit);
+        if (offset) host.searchParams.append('offset', offset);
+        if (group) host.searchParams.append('group', group);
+        if (sortingField) host.searchParams.append('sort', sortingField);
+        if (sortingDirection) host.searchParams.append('direction', sortingDirection);
+        this.loading = true;
+        const response = await fetch(host.toString());
+        const body = await response.json();
+        this.appliedInvoices = body;
         this.loading = false;
       } catch (error) {
         this.error = error;
