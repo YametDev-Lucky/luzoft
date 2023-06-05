@@ -178,15 +178,23 @@ export default {
   computed: {
     
     totalDesignatedInvoices(){
-      return this.globalStore.appliedInvoices.length;
+      return (
+        this.globalStore.appliedInvoices ?
+        this.globalStore.appliedInvoices.length :
+        0
+      );
     },
 
     totalDesignatedAmount(){
-      return this.globalStore.appliedInvoices.reduce((agg, curr) => {
-        const temp = curr.custrecord_fc_tppdi_dp_net_applied;
-        const q = temp === "" ? 0 : (typeof temp === "string" ? parseFloat(temp) : temp);
-        return agg + q
-      }, 0);
+      return (
+        this.globalStore.appliedInvoices ?
+        this.globalStore.appliedInvoices.reduce((agg, curr) => {
+          const temp = curr.custrecord_fc_tppdi_dp_net_applied;
+          const q = temp === "" ? 0 : (typeof temp === "string" ? parseFloat(temp) : temp);
+          return agg + q
+        }, 0) :
+        0
+      );
     },
     
   },

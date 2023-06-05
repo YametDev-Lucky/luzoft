@@ -300,14 +300,18 @@ export default {
   computed: {
     ...mapStores(useGlobalStore),
     totalDesignatedInvoices() {
-      return this.globalStore.appliedInvoices?.length;
+      return ( 
+        this.globalStore.appliedInvoices ? 
+        this.globalStore.appliedInvoices.length : 
+        0
+      );
     },
     totalDesignatedAmount() {
-      return this.globalStore.appliedInvoices?.reduce((agg, curr) => {
+      return (this.globalStore.appliedInvoices ? this.globalStore.appliedInvoices.reduce((agg, curr) => {
         const temp = curr.custrecord_fc_tppdi_dp_net_applied;
         const q = temp === "" ? 0 : (typeof temp === "string" ? parseFloat(temp) : temp);
         return agg + q
-      }, 0);
+      }, 0) : 0);
     },
     getTableData() {
       let newData = this.tableData;
@@ -321,7 +325,11 @@ export default {
           { title: 'Applied to Facility', key: 'custbody__pi_inv_traveler_txt' },
           { title: 'Applied to Amount', key: 'custrecord_fc_tppdi_dp_net_applied' }
         ],
-        desserts: [...this.globalStore?.appliedInvoices],
+        desserts: (
+          this.globalStore.appliedInvoices ?
+          [...this.globalStore?.appliedInvoices] :
+          []
+        ),
       });
       return newData;
     }
