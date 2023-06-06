@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import tppData from '@/plugins/tppdata';
 import tppDiData from '@/plugins/designatedinvoicesdata';
-import tppdata from '@/plugins/tppdata';
+import copData from '@/plugins/clientoverpaymentdata';
 
 const getRemoteUrl = async () => {
   const host = new URL(window.location.href);
@@ -24,6 +24,7 @@ const devStore = {
     loading: false,
     tpp: {},
     appliedInvoices: [],
+    clientOverpayments: [],
   }),
   getters: {
   },
@@ -47,6 +48,16 @@ const devStore = {
       try {
         const body = tppData;
         this.tpp = body;
+        this.loading = false;
+      } catch (error) {
+        this.error = error;
+      }
+    },
+    async getClientOverpayments (params) {
+      this.loading = true;
+      try {
+        const body = copData;
+        this.clientOverpayments = parseTableData(body);
         this.loading = false;
       } catch (error) {
         this.error = error;
@@ -119,4 +130,4 @@ const productionStore = {
   }
 };
 
-export const useGlobalStore = defineStore('global', import.meta.env.MODE === 'development' ? devStore : productionStore);
+export const useGlobalStore = defineStore('global', import.meta.env.MODE === 'development' ? devStore : devStore);

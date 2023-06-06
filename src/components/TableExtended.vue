@@ -59,7 +59,7 @@
     
     <tfoot v-show="!desserts.length">
       <tr>
-        <td :colspan="headers.length" class="text-center">
+        <td :colspan="headers.length + 1" class="text-center">
           <p>No data available</p>
         </td>
       </tr>

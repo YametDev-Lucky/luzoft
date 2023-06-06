@@ -193,7 +193,8 @@ import { mapStores } from 'pinia'
 import { useGlobalStore } from "@/stores/global"
 import Sidebar from '@/components/Sidebar.vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
-import table from '@/plugins/tabledata';
+import tablebody from '@/plugins/tablebody.js';
+import tablehead from '@/plugins/tablehead.js';
 import AppBar from '@/layouts/default/AppBar.vue';
 import AutoComplete from './AutoComplete.vue';
 import SearchBox from './SearchBox.vue';

@@ -167,7 +167,7 @@
 
       <!-- TabView -->
       <v-tabs v-model="tabletab" color="blue" align-tabs="start">
-        <v-tab v-for="(item, index) in tableData" :key="index" :value="index">{{ item.tabName }}</v-tab>
+        <v-tab v-for="(item, index) in getTableData" :key="index" :value="index">{{ item.tabName }}</v-tab>
 
         <v-btn class="right-side" variant="plain" :ripple="false" flat size="xsmall" rounded="0"
           @click="srcBoxOpened = true">
@@ -208,7 +208,9 @@ import { mapStores } from 'pinia'
 import { useGlobalStore } from "@/stores/global"
 import Sidebar from '@/components/Sidebar.vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
-import table from '@/plugins/tabledata';
+import tablebody from '@/plugins/tablebody.js';
+import tablehead from '@/plugins/tablehead.js';
+import combineTable from '@/plugins/combineTable.js';
 import AppBar from '@/layouts/default/AppBar.vue';
 import AutoComplete from '@/components/AutoComplete.vue';
 import SearchBox from '@/components/SearchBox.vue';
@@ -244,9 +246,6 @@ export default {
       },
     ],
     tabletab: null,
-    tableData: [
-      ...table,
-    ],
     items: [
       'CL01632 Supplemental Healthcare',
       'Partially Designated',
@@ -314,29 +313,17 @@ export default {
       }, 0) : 0);
     },
     getTableData() {
-      let newData = this.tableData;
-      newData.push({
-        
-        tabName: 'Existing Applied To Invoice',
-        headers: [
-          { title: 'Appled To Invoice', key: 'custrecord_fc_tppdi_designatedinvoice_txt' },
-          { title: 'Applied To Traveler', key: 'custbody__pi_inv_traveler' },
-          { title: 'Applied To Week Ending', key: 'trandate' },
-          { title: 'Applied to Facility', key: 'custbody__pi_inv_traveler_txt' },
-          { title: 'Applied to Amount', key: 'custrecord_fc_tppdi_dp_net_applied' }
-        ],
-        desserts: (
-          this.globalStore.appliedInvoices ?
-          [...this.globalStore?.appliedInvoices] :
-          []
-        ),
-      });
-      return newData;
+      return combineTable(tablehead, {
+        ...tablebody,
+        overpay: this.globalStore.clientOverpayments,
+        applied: this.globalStore.appliedInvoices
+      })
     }
   },
   mounted() {
     this.globalStore.getTPPInfo({});
     this.globalStore.getDesignatedInvoices({});
+    this.globalStore.getClientOverpayments({});
   }
 }
 </script>
