@@ -130,4 +130,4 @@ const productionStore = {
   }
 };
 
-export const useGlobalStore = defineStore('global', import.meta.env.MODE === 'development' ? devStore : devStore);
+export const useGlobalStore = defineStore( 'global', import.meta.env.MODE === 'development' ? devStore : devStore );

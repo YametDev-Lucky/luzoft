@@ -8,7 +8,9 @@
             color="primary"
             style="min-width: 0px;"
             @click="addFunction"
-          >+</v-btn>
+          >
+            +
+          </v-btn>
         </td>
         <td v-for="header in headers">{{ header.title }}</td>
       </tr>

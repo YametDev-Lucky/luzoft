@@ -48,5 +48,5 @@ export default {
   ],
   health: [],
   weekending: [],
-  insfund: []
+  insfund: [],
 }

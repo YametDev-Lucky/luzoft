@@ -167,7 +167,9 @@
 
       <!-- TabView -->
       <v-tabs v-model="tabletab" color="blue" align-tabs="start">
-        <v-tab v-for="(item, index) in getTableData" :key="index" :value="index">{{ item.tabName }}</v-tab>
+        <v-template v-for="(item, index) in getTableData">
+          <v-tab v-if="item.desserts.length != 0" :key="index" :value="index">{{ item.tabName }}</v-tab>
+        </v-template>
 
         <v-btn class="right-side" variant="plain" :ripple="false" flat size="xsmall" rounded="0"
           @click="srcBoxOpened = true">

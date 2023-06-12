@@ -21,6 +21,7 @@ export default [
       { title: 'AMT APPLIED', key: 'amtapplied' }
     ],
   },
+
   {
     tabName: 'Health System',
     tabID: 'health',
@@ -43,6 +44,7 @@ export default [
       { title: 'AMT APPLIED', key: 'amtapplied' }
     ],
   },
+
   {
     tabName: 'Week Ending',
     tabID: 'weekending',
@@ -65,6 +67,7 @@ export default [
       { title: 'AMT APPLIED', key: 'amtapplied' }
     ],
   },
+
   {
     tabName: 'Client Overpayment',
     tabID: 'overpay',
@@ -79,6 +82,7 @@ export default [
       { title: 'Customer Refund Transaction', key: 'custrecord_cop_af_trans' }
     ],
   },
+
   {
     tabName: 'Existing Insufficient Funds',
     tabID: 'insfund',
@@ -88,6 +92,7 @@ export default [
       { title: 'Insufficient Funds Amount', key: 'amount' }
     ],
   },
+
   {
     tabName: 'Existing Applied To Invoice',
     tabID: 'applied',
