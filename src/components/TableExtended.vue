@@ -12,13 +12,15 @@
             +
           </v-btn>
         </td>
-        <td v-for="header in headers">{{ header.title }}</td>
+        <td v-for="header in headers" @click="sortArray(header.key)">
+          {{ header.title }}
+        </td>
       </tr>
     </thead>
 
     <tbody>
       <template
-        v-for="(product, index) in desserts"
+        v-for="(product, index) in desserts.filter(v => isValidItem(v))"
         :key="product.facility"
       >
         <template v-if="index >= pageCapacity * (page - 1) && index < pageCapacity * page">
@@ -59,7 +61,7 @@
       </template>
     </tbody>
     
-    <tfoot v-show="!desserts.length">
+    <tfoot v-show="!desserts.filter(v => isValidItem(v)).length">
       <tr>
         <td :colspan="headers.length + 1" class="text-center">
           <p>No data available</p>
@@ -93,6 +95,7 @@
       'addPossible',
       'addFunction',
       'dispFunction',
+      'searchOption'
     ],
     data: (props) => ({
       tab: null,
@@ -105,7 +108,22 @@
       pages: props.pageCount,
     }),
     methods: {
-      collapse: function(index){
+      isNumber (val){
+        val = val.replace(',','');
+        return (Number(val) != NaN);
+      },
+      sortArray (key) {
+        this.desserts = this.desserts.sort((a, b) => {
+          if(this.isNumber(a[key]) && this.isNumber(b[key]))
+            return Number(a[key].replace(',','')) - Number(b[key].replace(',',''));
+          if(a[key] > b[key])
+            return 1;
+          if(a[key] < b[key])
+            return -1;
+          return 0;
+        });
+      },
+      collapse (index){
         if (this.desserts[index].collapsed == undefined)
           return;
 
@@ -122,8 +140,19 @@
           }, 2000);
         }
       },
+      isValidItem( item ) {
+        for (const key in this.searchOption) {
+          if(key in item
+            && this.searchOption[key]!=undefined
+            && this.searchOption[key].length
+            && item[key].indexOf(this.searchOption[key]) < 0
+          ) return false;
+        }
+        return true;
+      },
     },
   }
+
 </script>
 
 <style>

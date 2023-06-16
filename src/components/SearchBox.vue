@@ -6,7 +6,7 @@
     <v-card-text>
       <v-container class="searchbar">
         <p>MSP Reference #:</p>
-        <v-text-field variant="outlined" density="compact"/>
+        <v-text-field variant="outlined" density="compact" v-model="msp"/>
 
         <p>Traveler's Week Ending:</p>
         <VueDatePicker
@@ -18,13 +18,13 @@
         />
         
         <p>Traveler:</p>
-        <AutoComplete :items="items" />
+        <AutoComplete :items="items" v-model="traveler"/>
         
         <p>Invoice #:</p>
-        <v-text-field variant="outlined" density="compact"/>
+        <v-text-field variant="outlined" density="compact" v-model="invoice"/>
         
         <p>Facility #:</p>
-        <AutoComplete :items="items" />
+        <AutoComplete :items="items" v-model="facility"/>
       </v-container>
     </v-card-text>
     <v-container>
@@ -44,6 +44,7 @@
         color="blue-darken-2"
         size="large"
         variant="flat"
+        @click="search"
       >
         SEARCH
       </v-btn>
@@ -57,9 +58,13 @@
   import { ref } from 'vue';
   
   export default {
-    props: ['showbox', 'closed'],
+    props: ['showbox', 'closed', 'searchItem'],
     data: (props) => ({
       date: ref(),
+      msp: "",
+      traveler: "",
+      invoice: "",
+      facility: "",
       textInputOptions: ref({
         format: 'M/d/yyyy'
       }),
@@ -88,6 +93,16 @@
         const year = date.getFullYear();
 
         return `${month}/${day}/${year}`;
+      },
+      search() {
+        this.searchItem({
+          custrecord_cop_inv: this.invoice,
+          custrecord_fc_tppdi_designatedinvoice_txt: this.invoice,
+          custrecord_cop_fac: this.facility,
+          custbody__pi_inv_traveler_txt: this.facility,
+          custbody__pi_inv_traveler: this.traveler,
+          trandate: this.date,
+        })
       },
     }
   }

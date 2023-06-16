@@ -186,6 +186,7 @@
           :pageCount="Math.ceil(item.desserts.length / 10)"
           :addFunction="openAppendBox"
           :dispFunction="display"
+          :searchOption="searchOption"
         />
       </template>
     </v-responsive>
@@ -193,7 +194,7 @@
     <Sidebar :globalStore="globalStore" :textData="textData" />
 
     <v-dialog v-model="srcBoxOpened" width="365" >
-      <SearchBox />
+      <SearchBox :searchItem="searchOptionChanged" />
     </v-dialog>
     
     <v-dialog v-model="addBoxOpened" >
@@ -223,6 +224,7 @@ export default {
   data: () => ({
     researchHold: false,
     input: null,
+    searchOption: {},
     srcBoxOpened: false,
     addBoxOpened: false,
     sideBarOpened: false,
@@ -290,6 +292,10 @@ export default {
     },
     display(flag) {
       this.globalStore.loading = flag;
+    },
+    searchOptionChanged(val) {
+      this.searchOption = val;
+      this.srcBoxOpened = false;
     },
     openAppendBox() {
       this.addBoxOpened = true;
